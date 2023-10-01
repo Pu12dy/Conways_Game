@@ -8,12 +8,13 @@ wm title . "Conway's Game of Life"
 # Create a convas for the grid
 frame .dialogFrame
 canvas .dialogFrame.canvas -width 650 -height 650 -background white -borderwidth 5 -relief ridge
+set can ".dialogFrame.canvas"
 
 # Create buttons for controlling the simulation
 frame .dialogFrame.buttonFrame
-button .dialogFrame.buttonFrame.startButton  -text "Start" -command {start_simulation} 
-button .dialogFrame.buttonFrame.stopButton   -text "Stop"  -command {stop_simulation}
-button .dialogFrame.buttonFrame.clearButton  -text "Clear" -command {clear_grid}
+button .dialogFrame.buttonFrame.startButton  -text "Start" -command {start_simulation $can} 
+button .dialogFrame.buttonFrame.stopButton   -text "Stop"  -command {stop_simulation $can}
+button .dialogFrame.buttonFrame.clearButton  -text "Clear" -command {clear_grid $can}
 button .dialogFrame.buttonFrame.exitButton   -text "Exit"  -command {exit_game}
 
 # Using grid geometry manager to handle layout
@@ -32,17 +33,19 @@ grid columnconfigure .dialogFrame.buttonFrame 0
 
 
 # Function starting the simulatin
-proc start_simulation {} {
+proc start_simulation {w} {
+	$w create rectangle 50 50 150 150 -fill red
+}
+
+proc stop_simulation {w} {
 
 }
 
-proc stop_simulation {} {
-}
-
-proc clear_grid {} {
-
+proc clear_grid {w} {
+	$w delete all
 }
 
 proc exit_game {} {
 	exit
 }
+
